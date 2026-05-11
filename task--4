@@ -1,0 +1,90 @@
+# Install the Hugging Face Transformers library
+!pip install transformers
+from transformers import pipeline
+
+# Use a pipeline for text generation for simplicity
+generator = pipeline('text-generation', model='gpt2')
+def generate_text(prompt, max_new_tokens=100, num_return_sequences=1):
+  """
+  Generates text using the pre-trained GPT-2 model.
+
+  Args:
+    prompt (str): The starting text for generation.
+    max_new_tokens (int): The maximum number of new tokens to generate.
+    num_return_sequences (int): The number of different sequences to generate.
+
+  Returns:
+    list: A list of generated text strings.
+  """
+  print(f"Generating text for prompt: '{prompt}'")
+  generated_sequences = generator(
+      prompt,
+      max_new_tokens=max_new_tokens,
+      num_return_sequences=num_return_sequences,
+      pad_token_id=generator.tokenizer.eos_token_id, # Avoid warnings
+      truncation=True # Ensure prompts longer than model's max length are handled
+  )
+  return [seq['generated_text'] for seq in generated_sequences]
+
+# Example 1: Generate a short story beginning
+print("\n--- Example 1: Short Story ---")
+story_prompt = "Once upon a time, in a land far away, there lived a brave knight who"
+generated_stories = generate_text(story_prompt, max_new_tokens=150, num_return_sequences=1)
+for i, text in enumerate(generated_stories):
+    print(f"Generated Text {i+1}:\n{text}\n")
+
+# Example 2: Generate a descriptive paragraph about a futuristic city
+print("\n--- Example 2: Futuristic City Description ---")
+city_prompt = "The city of Neo-Veridia shimmered under the twin moons, its spires reaching towards the stars."
+generated_cities = generate_text(city_prompt, max_new_tokens=200, num_return_sequences=1)
+for i, text in enumerate(generated_cities):
+    print(f"Generated Text {i+1}:\n{text}\n")
+
+# Example 3: Generate a philosophical thought
+print("\n--- Example 3: Philosophical Thought ---")
+philosophy_prompt = "The meaning of life is often debated, yet perhaps it is not a singular answer, but rather a"
+generated_philosophies = generate_text(philosophy_prompt, max_new_tokens=100, num_return_sequences=1)
+for i, text in enumerate(generated_philosophies):
+    print(f"Generated Text {i+1}:\n{text}\n")
+def generate_text(prompt, max_new_tokens=100, num_return_sequences=1):
+  """
+  Generates text using the pre-trained GPT-2 model.
+
+  Args:
+    prompt (str): The starting text for generation.
+    max_new_tokens (int): The maximum number of new tokens to generate.
+    num_return_sequences (int): The number of different sequences to generate.
+
+  Returns:
+    list: A list of generated text strings.
+  """
+  print(f"Generating text for prompt: '{prompt}'")
+  generated_sequences = generator(
+      prompt,
+      max_new_tokens=max_new_tokens,
+      num_return_sequences=num_return_sequences,
+      pad_token_id=generator.tokenizer.eos_token_id, # Avoid warnings
+      truncation=True # Ensure prompts longer than model's max length are handled
+  )
+  return [seq['generated_text'] for seq in generated_sequences]
+
+# Example 1: Generate a short story beginning
+print("\n--- Example 1: Short Story ---")
+story_prompt = "Once upon a time, in a land far away, there lived a brave knight who"
+generated_stories = generate_text(story_prompt, max_new_tokens=150, num_return_sequences=1)
+for i, text in enumerate(generated_stories):
+    print(f"Generated Text {i+1}:\n{text}\n")
+
+# Example 2: Generate a descriptive paragraph about a futuristic city
+print("\n--- Example 2: Futuristic City Description ---")
+city_prompt = "The city of Neo-Veridia shimmered under the twin moons, its spires reaching towards the stars."
+generated_cities = generate_text(city_prompt, max_new_tokens=200, num_return_sequences=1)
+for i, text in enumerate(generated_cities):
+    print(f"Generated Text {i+1}:\n{text}\n")
+
+# Example 3: Generate a philosophical thought
+print("\n--- Example 3: Philosophical Thought ---")
+philosophy_prompt = "The meaning of life is often debated, yet perhaps it is not a singular answer, but rather a"
+generated_philosophies = generate_text(philosophy_prompt, max_new_tokens=100, num_return_sequences=1)
+for i, text in enumerate(generated_philosophies):
+    print(f"Generated Text {i+1}:\n{text}\n")
